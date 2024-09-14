@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabaseClient } from "@/lib/auth";
-import { getUserFromDB, insertUserIntoDB } from '@/lib/db/user';
+import { checkUserFromDB, insertUserIntoDB } from '@/lib/db/user';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
       const currentUser = (await supabase.auth.getUser()).data.user;
-      if (!await getUserFromDB(currentUser?.email)) {
+      if (!await checkUserFromDB(currentUser?.email)) {
         await insertUserIntoDB(currentUser?.email!)
       }
       const forwardedHost = request.headers.get('x-forwarded-host')
