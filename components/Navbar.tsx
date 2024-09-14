@@ -27,7 +27,7 @@ const Navbar = ({auth} : {auth:any}) => {
   }
 
   return (
-    <nav className="py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
+    <nav className="absolute top-0 py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
       <h3 className="text-2xl">BioLnk</h3>
       <div className="flex gap-2 items-center justify-center">
         {auth ? 
