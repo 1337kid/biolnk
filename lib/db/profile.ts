@@ -1,7 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client'
 
-const prisma = new PrismaClient();
-
 export const updateProfileData = async (
     email: string | undefined,
     profileName: string,
@@ -9,6 +7,7 @@ export const updateProfileData = async (
     bio: string,
     links: Prisma.JsonArray
 ) => {
+    const prisma = new PrismaClient();
     await prisma.users.update({
         where: {
             email: email
@@ -20,4 +19,21 @@ export const updateProfileData = async (
             links: links
         }
     })
+}
+
+export const getProfileDataFromDBUsingPath = async (urlPath: string | undefined) => {
+    const prisma = new PrismaClient();
+    const profile = await prisma.users.findFirst({
+        where: {
+            urlpath: urlPath
+        },
+        select: {
+            name: true,
+            bio: true,
+            links: true,
+            image: true,
+            banner: true
+        }
+    })
+    return profile;
 }

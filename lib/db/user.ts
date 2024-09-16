@@ -1,8 +1,7 @@
 import { PrismaClient, Prisma } from '@prisma/client'
 
-const prisma = new PrismaClient();
-
 export const checkUserFromDB = async (email: string | undefined) => {
+    const prisma = new PrismaClient();
     const user = await prisma.users.findUnique({
         where: {
             email: email
@@ -13,6 +12,7 @@ export const checkUserFromDB = async (email: string | undefined) => {
 }
 
 export const insertUserIntoDB = async (email: string) => {
+    const prisma = new PrismaClient();
     await prisma.users.create({
         data: {
             email: email

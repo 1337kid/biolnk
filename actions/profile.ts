@@ -1,5 +1,5 @@
 'use server';
-import { updateProfileData } from "@/lib/db/profile";
+import { getProfileDataFromDBUsingPath, updateProfileData } from "@/lib/db/profile";
 import { Prisma } from "@prisma/client";
 import { getUser } from "@/lib/auth";
 
@@ -18,6 +18,14 @@ export const handleProfileDataSubmit = async (
             bio,
             links,
         )
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getProfileDataUsingPath = async (urlPath: string | undefined) => {
+    try {
+        return await getProfileDataFromDBUsingPath(urlPath);
     } catch (error) {
         console.log(error)
     }
