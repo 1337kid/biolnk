@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { MdOutlineLogin, MdOutlineLogout } from "react-icons/md";
 import CustomButton from "./CustomButton";
+import NavLogo from "@/assets/icon.png";
+import Image from "next/image";
 
 const Navbar = ({auth} : {auth:any}) => {
   const [isPending, startTransistion] = useTransition();
@@ -28,7 +30,7 @@ const Navbar = ({auth} : {auth:any}) => {
 
   return (
     <nav className="absolute top-0 py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
-      <h3 className="text-2xl">BioLnk</h3>
+      <Image src={NavLogo} alt="logo" className="max-h-10 max-w-10"/>
       <div className="flex gap-2 items-center justify-center">
         {auth ? 
           <CustomButton
