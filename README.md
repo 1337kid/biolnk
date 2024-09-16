@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BioLnk
 
-## Getting Started
+<div align="center">
+  <img src="assets/icon.png" width="150"/>
+  <p>
+  <a href="https://biolnk.vercel.app" target="_blank">biolnk.vercel.app</a><br/>
+<b>BioLnk</b> is a simple yet powerful service for creating a personalized profile page. Add your profile image, a striking banner, and a bio that tells your story. The main feature? Seamlessly add links to all your social platforms, websites, and services in one place. Perfect for sharing across social media! 
+</p>
+</div>
 
-First, run the development server:
+## Contents
 
+- [**Features**](#features)
+- [**Installation**](#installation)
+- [**Gallery**](#gallery)
+- [**Team Memebers**](#team-members)
+
+## Features
+
+- **Profile Image**: Upload a profile picture that represents your personal brand.
+- **Custom Banner**: Add a unique banner to make your profile stand out.
+- **Bio Section**: Share a brief description about yourself or your brand.
+- **Link Integration**: Add and manage links to your social media profiles, websites, and other services, all in one place.
+- **Responsive Design**: Works seamlessly across mobile and desktop devices.
+- **Easy Customization**: Quickly update your profile with an intuitive interface.
+- **Shareable Profile**: Get a custom URL to share your profile easily across all platforms.
+
+
+## Installation
+#### Environment variables example
 ```bash
+SUPABASE_URL="https://[REDACTED].supabase.co"
+SUPABASE_ANON_KEY="supabase anon key"
+NEXT_PUBLIC_BASE_URL=http://domain.tld
+DIRECT_URL="postgresql://postgres.[REDACTED]:[REDACTED]@[REDACTED].pooler.supabase.com:5432/[REDACTED]"
+DATABASE_URL="postgresql://postgres.[REDACTED]:[REDACTED]@[REDACTED].pooler.supabase.com:6543/[REDACTED]?pgbouncer=true"
+SUPABASE_BUCKET_NAME="supabase storage bucket name here"
+```
+#### Development
+```bash
+git clone https://github.com/1337kid/biolnk.git
+cd biolnk
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+#### Build
+```bash
+git clone https://github.com/1337kid/biolnk.git
+cd biolnk
+npm i
+npx prisma generate && npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Gallery
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Landing Page|Add Data|
+:-:|:-:
+| ![](imgs/1.png) | ![](imgs/2.png) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Example Profile| In Mobile View|
+:-:|:-:
+| ![](imgs/3.png)| ![](imgs/4.png) |
