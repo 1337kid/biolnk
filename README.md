@@ -12,8 +12,8 @@
 
 - [**Features**](#features)
 - [**Installation**](#installation)
+- [**Usage**](#usage)
 - [**Gallery**](#gallery)
-- [**Team Memebers**](#team-members)
 
 ## Features
 
@@ -27,6 +27,7 @@
 
 
 ## Installation
+This section gives an idea for self hosting / development.
 #### Environment variables example
 ```bash
 SUPABASE_URL="https://[REDACTED].supabase.co"
@@ -36,20 +37,29 @@ DIRECT_URL="postgresql://postgres.[REDACTED]:[REDACTED]@[REDACTED].pooler.supaba
 DATABASE_URL="postgresql://postgres.[REDACTED]:[REDACTED]@[REDACTED].pooler.supabase.com:6543/[REDACTED]?pgbouncer=true"
 SUPABASE_BUCKET_NAME="supabase storage bucket name here"
 ```
-#### Development
+
+#### Setup
+1. Clone the repository
 ```bash
 git clone https://github.com/1337kid/biolnk.git
 cd biolnk
+```
+2. Install dependencies
+```bash
 npm i
+```
+3. To start development server
+```bash
 npm run dev
 ```
-#### Build
+4. To build for deployment
 ```bash
-git clone https://github.com/1337kid/biolnk.git
-cd biolnk
-npm i
 npx prisma generate && npm run build
 ```
+## Usage
+- BioLnk uses Google authentication. All you need is a Goolge account.
+- Head over to `biolnk.vercel.app/profile` to set up your profile path, links, images & other details.
+- View your profile at `biolnk.vercel.app/profilelnk`.
 
 ## Gallery
 
