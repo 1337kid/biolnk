@@ -1,34 +1,73 @@
 "use client";
+import { useEffect } from "react";
 import { handleImageUpload, handleProfileDataSubmit } from "@/actions/profile";
 import { useState } from "react";
 import CustomButton from "./CustomButton";
+import { MdDelete } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
+import { getProfileData } from "@/actions/profile";
+import { CirclesWithBar } from "react-loader-spinner";
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const ProfileForm = () => {
   const [data, setData] = useState({
     profileName: "",
     urlPath: "",
-    bio: ""
+    bio: "",
   });
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState([{link:"",title:""}]);
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [banner, setBanner] = useState<File | null>(null)
+  const [isLoading, setIsLoading] = useState(true);
   
+  useEffect(() => {
+    setIsLoading(true);
+    getProfileData().then(data => {
+      setData({
+        profileName: data?.name as string,
+        urlPath: data?.urlpath  as string,
+        bio: data?.bio  as string
+      })
+      setLinks(data?.links as any);
+      setIsLoading(false);
+    });
+  },[])
+
   const handleDataSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let regex = /^[a-zA-Z0-9_-]+$/;
     if (data.urlPath.match(regex)) {
+        toast.info('Updating Data');
         handleProfileDataSubmit(
             data.profileName,
             data.urlPath,
             data.bio,
             links
-        );
+        ).then(data => {
+          if (data?.error) toast.error(data.error);
+          else toast.success(data?.message);
+        });
         return;
     }
-    alert("url path can only contain A-Z, a-z, 0-9 ,-,_")
+    toast.error('URL path can only contain A-Z, a-z, 0-9 ,- & _');
   }
-
-  return (
+  if (isLoading) return (
+    <div className="flex justify-center items-center m-auto">
+      <CirclesWithBar
+        height="100"
+        width="100"
+        color="#9333ea"
+        outerCircleColor="#7c3aed"
+        innerCircleColor="#9333ea"
+        barColor="#7c3aed"
+        ariaLabel="circles-with-bar-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        />
+    </div>
+  )
+  else return (
     <div className='text-violet-300'>
       <div className="flex flex-col">
         <form
@@ -36,9 +75,15 @@ const ProfileForm = () => {
           onSubmit={(e) => {
             e.preventDefault();
             if (profilePic) {
+              toast.info('Uploading Profile Image');
               const form = new FormData();
               form.append('file', profilePic)
-              handleImageUpload(form, '_profile');
+              handleImageUpload(form, '_profile').then(data => {
+                if (data?.error) toast.error(data.error);
+                else toast.success(data?.message);
+              });
+            } else {
+              toast.error('Select an image first');
             }
           }}
         >
@@ -60,9 +105,15 @@ const ProfileForm = () => {
           onSubmit={(e) => {
             e.preventDefault();
             if (banner) {
+              toast.info('Uploading banner');
               const form = new FormData();
               form.append('file', banner)
-              handleImageUpload(form, '_banner');
+              handleImageUpload(form, '_banner').then(data => {
+                if (data?.error) toast.error(data.error);
+                else toast.success(data?.message);
+              });
+            } else {
+              toast.error('Select an image first');
             }
           }}
         >
@@ -81,17 +132,18 @@ const ProfileForm = () => {
 
         </form>
       </div>
-      <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Profile Data</label>
       <form
-        className="flex flex-col gap-2 w-full"
+        className="flex flex-col gap-2 w-full my-2"
         onSubmit={(e) => handleDataSubmit(e)}
       >
+        <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Profile Data</label>
         <label className="flex gap-2 bg-zinc-900 p-1 rounded-lg items-center justify-between">
           <span className="font-[450]">Name</span>
           <input
             className="rounded-lg p-1 bg-zinc-700 focus:outline-none focus:outline-purple-500"
             placeholder="Your name here"
             onChange={(e) => setData({...data, profileName: e.target.value})}
+            value={data.profileName}
           />
         </label>
 
@@ -101,6 +153,7 @@ const ProfileForm = () => {
             className="rounded-lg p-1 bg-zinc-700 focus:outline-none focus:outline-purple-500"
             placeholder="Short bio here"
             onChange={(e) => setData({...data, bio: e.target.value})}
+            value={data.bio}
           />
         </label>
 
@@ -110,9 +163,61 @@ const ProfileForm = () => {
             className="rounded-lg p-1 bg-zinc-700 focus:outline-none focus:outline-purple-500"
             placeholder="/urlpath"
             onChange={(e) => setData({...data, urlPath: e.target.value})}
+            value={data.urlPath}
           />
         </label>
-
+        <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Profile Links</label>
+        {links.length != 0 &&  links.map((item,index) => 
+          <div key={index} className="flex">
+            <div className="flex flex-col gap-2 bg-black p-2 rounded-l-lg">
+              <label className="flex gap-2 bg-zinc-900 p-1 rounded-lg items-center justify-between">
+                <span className="font-[450]">Title</span>
+                <input
+                  className="rounded-lg p-1 bg-zinc-700 focus:outline-none focus:outline-purple-500"
+                  placeholder="Title"
+                  onChange={(e) => {
+                    const updatedLinks = [...links];
+                    updatedLinks[index] = {...updatedLinks[index], title: e.target.value};
+                    setLinks(updatedLinks);
+                  }}
+                  value={item.title}
+                />
+              </label>
+              <label className="flex gap-2 bg-zinc-900 p-1 rounded-lg items-center justify-between">
+                <span className="font-[450]">Link</span>
+                <input
+                  className="rounded-lg p-1 bg-zinc-700 focus:outline-none focus:outline-purple-500"
+                  placeholder="Link"
+                  onChange={(e) => {
+                    const updatedLinks = [...links];
+                    updatedLinks[index] = {...updatedLinks[index], link: e.target.value};
+                    setLinks(updatedLinks);
+                  }}
+                  value={item.link}
+                />
+              </label>
+            </div>
+            <button
+              type="button"
+              className="flex w-4/12 bg-zinc-800 rounded-r-lg hover:bg-red-400 hover:cursor-pointer items-center"
+              onClick={() => {
+                setLinks(links.filter((_, i) => i !== index));
+              }}
+            >
+              <MdDelete className="text-[40px]"/>
+            </button>   
+          </div>
+         )}
+        <CustomButton
+          type="button"
+          text="Add New field"
+          RightIcon={<IoMdAdd/>}
+          varient="navbar"
+          styles="justify-between"
+          handleClick={() => {
+            setLinks([...links, {link: "", title: ""}]);
+          }}
+        />
         <CustomButton
           text="Save Data"
           varient="form"

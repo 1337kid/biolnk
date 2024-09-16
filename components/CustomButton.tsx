@@ -7,6 +7,8 @@ interface CustomButtonProps {
   isPending?: boolean
   isPendingText?: string
   RightIcon?: any
+  styles?: string
+  type?: 'button' | 'submit'
 }
 
 const CustomButton = ({
@@ -15,7 +17,9 @@ const CustomButton = ({
     varient,
     isPending,
     isPendingText,
-    RightIcon
+    RightIcon,
+    styles,
+    type="submit"
   } : CustomButtonProps) => {
 
   const classes = {
@@ -26,8 +30,9 @@ const CustomButton = ({
 
   return (
     <button
+      type={type}
       onClick={handleClick}
-      className={`flex items-center gap-2 text-lg ${classes[varient]}`}
+      className={`flex items-center gap-2 text-lg ${classes[varient]} ${styles && styles}`}
     >
       {isPending ? isPendingText : text}
       {RightIcon && RightIcon}

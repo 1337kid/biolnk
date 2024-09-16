@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const user = await getUser(request, response);
 
   if (path === "/profile" && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;

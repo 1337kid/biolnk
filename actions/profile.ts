@@ -3,11 +3,11 @@ import {
     getProfileDataFromDBUsingPath,
     updateProfileData,
     updateProfileBannerURL,
-    updateProfileImageURL
+    updateProfileImageURL,
+    getProfileDataFromDB
 } from "@/lib/db/profile";
 import { Prisma } from "@prisma/client";
 import { getSupabaseClient, getUser } from "@/lib/auth";
-
 
 export const handleProfileDataSubmit = async (
     profileName: string,
@@ -24,8 +24,10 @@ export const handleProfileDataSubmit = async (
             bio,
             links,
         )
+        return {message: 'Data updated successfully', error: null};
     } catch (error) {
         console.log(error)
+        return {error: 'Error: Data Not updated', message: null};
     }
 }
 
@@ -62,4 +64,9 @@ export const getProfileDataUsingPath = async (urlPath: string | undefined) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+export const getProfileData = async () => {
+    const user = await getUser();
+    return getProfileDataFromDB(user?.email);
 }

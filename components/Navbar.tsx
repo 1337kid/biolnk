@@ -14,7 +14,7 @@ const Navbar = ({auth} : {auth:any}) => {
     startTransistion(async () => {
       const {error, url} = await loginAction(provider);
       if (!error && url) router.push(url);
-      else console.log("not logginge")
+      else console.log("not loggedin")
     })
   }
   
@@ -22,7 +22,7 @@ const Navbar = ({auth} : {auth:any}) => {
     startTransistion(async () => {
       const {error} = await signoutAction();
       if (error) console.log(error)
-      else console.log("signed out")
+      else router.push('/');
     })
   }
 

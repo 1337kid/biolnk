@@ -38,6 +38,22 @@ export const getProfileDataFromDBUsingPath = async (urlPath: string | undefined)
     return profile;
 }
 
+export const getProfileDataFromDB = async (email: string | undefined) => {
+    const prisma = new PrismaClient();
+    const profile = await prisma.users.findFirst({
+        where: {
+            email: email
+        },
+        select: {
+            name: true,
+            bio: true,
+            links: true,
+            urlpath: true,
+        }
+    })
+    return profile;
+}
+
 export const updateProfileBannerURL = async (
     email: string | undefined,
     url: string
