@@ -14,7 +14,7 @@ export default function Page() {
     banner: "",
     image: "",
     bio: "",
-    links: []
+    links: [{link:"",title:""}]
   })
 
   useEffect(() => {

@@ -37,3 +37,33 @@ export const getProfileDataFromDBUsingPath = async (urlPath: string | undefined)
     })
     return profile;
 }
+
+export const updateProfileBannerURL = async (
+    email: string | undefined,
+    url: string
+) => {
+    const prisma = new PrismaClient();
+    await prisma.users.update({
+        where: {
+            email: email
+        },
+        data: {
+            banner: url
+        }
+    });
+}
+
+export const updateProfileImageURL = async (
+    email: string | undefined,
+    url: string
+) => {
+    const prisma = new PrismaClient();
+    await prisma.users.update({
+        where: {
+            email: email
+        },
+        data: {
+            image: url
+        }
+    });
+}
