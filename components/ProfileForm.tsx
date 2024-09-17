@@ -28,7 +28,8 @@ const ProfileForm = () => {
         urlPath: data?.urlpath  as string,
         bio: data?.bio  as string
       })
-      setLinks(data?.links as any);
+      if (data?.links == null) setLinks([]);
+      else setLinks(data?.links as any);
       setIsLoading(false);
     });
   },[])
@@ -167,7 +168,7 @@ const ProfileForm = () => {
           />
         </label>
         <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Profile Links</label>
-        {links.length != 0 &&  links.map((item,index) => 
+        {links && links.length != 0 &&  links.map((item,index) => 
           <div key={index} className="flex">
             <div className="flex flex-col gap-2 bg-black p-2 rounded-l-lg">
               <label className="flex gap-2 bg-zinc-900 p-1 rounded-lg items-center justify-between">

@@ -28,6 +28,6 @@ export const signoutAction = async () => {
         if (error) throw error;
         return {error: null};
     } catch (error) {
-        return {error: "error loggini in"}
+        return {error: "error signing out"}
     }
 }
