@@ -7,6 +7,7 @@ import { MdOutlineLogin, MdOutlineLogout } from "react-icons/md";
 import CustomButton from "./CustomButton";
 import NavLogo from "@/assets/icon.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar = ({auth} : {auth:any}) => {
   const [isPending, startTransistion] = useTransition();
@@ -30,7 +31,9 @@ const Navbar = ({auth} : {auth:any}) => {
 
   return (
     <nav className="absolute top-0 py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
-      <Image src={NavLogo} alt="logo" className="max-h-10 max-w-10"/>
+      <Link href="/">
+        <Image src={NavLogo} alt="logo" className="max-h-10 max-w-10"/>
+      </Link>
       <div className="flex gap-2 items-center justify-center">
         {auth ? 
           <CustomButton

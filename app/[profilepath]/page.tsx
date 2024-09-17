@@ -4,10 +4,11 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { MdOpenInNew } from "react-icons/md";
 import { CirclesWithBar } from "react-loader-spinner";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import NavLogo from "@/assets/icon.png";
 
 export default function Page() {
-  const router = useRouter();
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false)
@@ -38,13 +39,17 @@ export default function Page() {
     <div className="p-2 h-screen">
       <div className="bg-zinc-950/80 h-[calc(100vh-1rem)] rounded-xl border border-zinc-950 relative">
         <nav className="absolute top-0 py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
-          <h3 className="text-2xl">BioLnk</h3>
+          <Link href="/">
+            <Image src={NavLogo} alt="logo" className="max-h-10 max-w-10"/>
+          </Link>
         </nav>
         <div className="flex m-auto justify-between items-center flex-col max-lg:gap-10 h-full overflow-scroll">
           <div className="flex justify-center container px-2">
           {!isLoading ? (
             <div className="flex flex-col gap-2 w-[600px] mt-20 bg-zinc-900 rounded-lg text-purple-300 max-md:w-full">
-              {error ? (<></>) : (
+              {error ? (<>
+                <h1 className="text-2xl p-2 text-center">Error 404 | Profile Not Found</h1>
+              </>) : (
                 <>
                   <div className="bg-zinc-900 relative min-h-[180px] rounded-lg">
                     <img

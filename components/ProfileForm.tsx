@@ -43,7 +43,6 @@ const ProfileForm = () => {
       toast.error(`Error: Name cannot be empty`);
       return;
     }
-    let regex = /^[a-zA-Z0-9_.-]+$/;
     const invalidLinkFound = links.some((item) => {
       if (!isUrl(item.link)) {
         toast.error(`Error: ${item.link} is not a valid URL`);
@@ -52,6 +51,7 @@ const ProfileForm = () => {
       return false;
     });
     if (invalidLinkFound) return;
+    let regex = /^[a-zA-Z0-9_.-]+$/;
     if (data.urlPath.match(regex)) {
         toast.info('Updating Data. Please wait');
         handleProfileDataSubmit(
@@ -66,6 +66,7 @@ const ProfileForm = () => {
         return;
     }
     toast.error('URL path can only contain A-Z, a-z, 0-9 , - , . , and _');
+    toast.error('Remove "/" if you have included it in the urlpath')
   }
 
   const handleProfileImageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -115,7 +116,7 @@ const ProfileForm = () => {
     </div>
   )
   else return (
-    <div className='text-violet-300'>
+    <div className='text-violet-300 w-full'>
       <div className="flex flex-col">
         <form
           className="flex flex-col gap-2 my-2"

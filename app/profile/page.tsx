@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ProfileForm from "@/components/ProfileForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 export default async function Page() {
   const user = await getUser();
@@ -29,6 +30,7 @@ export default async function Page() {
             <h4 className="text-center max-md:w-full text-2xl font-[600] text-violet-300">
               Setup Your Page
             </h4>
+
             <div className="max-w-[600px] m-auto">
               <ProfileForm />
             </div>
