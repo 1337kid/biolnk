@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 body, html {
-  height: 100%;
+  height: 100vh;
 }
 
 body {
-  background-color:#c084fc;
+  background-color:#49335f;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-image:
-  radial-gradient(at 38% 93%, #6366f1 0px, transparent 50%),
-  radial-gradient(at 33% 73%, #7c3aed 0px, transparent 50%);
+  radial-gradient(at 38% 93%, #3b3c91 0px, transparent 50%),
+  radial-gradient(at 33% 73%, #411e7c 0px, transparent 50%);
 }
 
 .gradient-text {

@@ -36,8 +36,8 @@ export default function Page() {
   },[pathname])
 
   return (
-    <div className="p-2 h-screen">
-      <div className="bg-zinc-950/80 h-[calc(100vh-1rem)] rounded-xl border border-zinc-950 relative">
+    <div className="p-2 h-dvh">
+      <div className="bg-zinc-950/80 h-[calc(100dvh-1rem)] rounded-xl border border-zinc-950 relative">
         <nav className="absolute top-0 py-2 px-4 rounded-xl w-full flex items-center justify-between bg-zinc-950 h-[60px] text-white">
           <Link href="/">
             <Image src={NavLogo} alt="logo" className="max-h-10 max-w-10"/>

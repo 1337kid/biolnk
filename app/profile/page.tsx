@@ -10,7 +10,7 @@ export default async function Page() {
   const user = await getUser();
 
   return (
-    <div className="p-2 h-screen">
+    <div className="p-2 h-dvh">
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -23,7 +23,7 @@ export default async function Page() {
         pauseOnHover
         theme="dark"
       />
-      <div className="bg-zinc-950/80 h-[calc(100vh-1rem)] rounded-xl border border-zinc-950 relative">
+      <div className="bg-zinc-950/80 h-[calc(100dvh-1rem)] rounded-xl border border-zinc-950 relative">
         <Navbar auth={user}/>
         <div className="flex m-auto justify-between items-center flex-col max-lg:gap-10 h-full overflow-scroll">
           <div className="container mt-20 flex flex-col gap-4">

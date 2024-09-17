@@ -11,8 +11,8 @@ export default async function Home() {
   const user = await getUser();
 
   return (
-    <div className="p-2 h-screen">
-      <div className="bg-zinc-950/80 h-[calc(100vh-1rem)] rounded-xl border border-zinc-950 relative">
+    <div className="p-2 h-dvh">
+      <div className="bg-zinc-950/80 h-[calc(100dvh-1rem)] rounded-xl border border-zinc-950 relative">
         <Navbar auth={user}/>
         <div className="flex m-auto justify-between items-center flex-col max-lg:gap-10 h-full overflow-scroll">
           <h1 className="text-center w-[600px] mt-20 max-md:w-full text-[100px] leading-[110px] max-md:text-[80px] max-md:leading-[90px] font-[600] text-violet-300 container">
