@@ -17,6 +17,8 @@ export const handleProfileDataSubmit = async (
 ) => {
     const user = await getUser();
     try {
+        const isPathUsed = await getProfileDataFromDBUsingPath(urlPath);
+        if (isPathUsed) return { error: "URL path is already used. Pick another one" }
         await updateProfileData(
             user?.email,
             profileName,
@@ -24,10 +26,10 @@ export const handleProfileDataSubmit = async (
             bio,
             links,
         )
-        return {message: 'Data updated successfully', error: null};
+        return { message: 'Data updated successfully', error: null };
     } catch (error) {
         console.log(error)
-        return {error: 'Error: Data Not updated', message: null};
+        return { error: 'Error: Data Not updated', message: null };
     }
 }
 
