@@ -44,7 +44,9 @@ export const handleImageUpload = async (
         const { data: imageData, error } = await supabase.storage.from(
             process.env.SUPABASE_BUCKET_NAME as string
         ).upload(fileName, image, {upsert: true});
-        if (error) return {error: "Error while uploading file"};
+        if (error) {
+            return {error: `Error while uploading file. ${error.message}`};
+        }
     
         const { data: imgUrl} = await supabase.storage.from(
             process.env.SUPABASE_BUCKET_NAME as string

@@ -20,7 +20,7 @@ export default async function Page() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
       <div className="bg-zinc-950/80 h-[calc(100vh-1rem)] rounded-xl border border-zinc-950 relative">
         <Navbar auth={user}/>

@@ -7,7 +7,10 @@ import { MdDelete } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { getProfileData } from "@/actions/profile";
 import { CirclesWithBar } from "react-loader-spinner";
-import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { IoMdSave } from "react-icons/io";
+import { IoCloudUploadSharp } from "react-icons/io5";
+import isUrl from 'is-url';
 
 const ProfileForm = () => {
   const [data, setData] = useState({
@@ -36,9 +39,21 @@ const ProfileForm = () => {
 
   const handleDataSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let regex = /^[a-zA-Z0-9_-]+$/;
+    if (!data.profileName) {
+      toast.error(`Error: Name cannot be empty`);
+      return;
+    }
+    let regex = /^[a-zA-Z0-9_.-]+$/;
+    const invalidLinkFound = links.some((item) => {
+      if (!isUrl(item.link)) {
+        toast.error(`Error: ${item.link} is not a valid URL`);
+        return true;
+      }
+      return false;
+    });
+    if (invalidLinkFound) return;
     if (data.urlPath.match(regex)) {
-        toast.info('Updating Data');
+        toast.info('Updating Data. Please wait');
         handleProfileDataSubmit(
             data.profileName,
             data.urlPath,
@@ -50,8 +65,39 @@ const ProfileForm = () => {
         });
         return;
     }
-    toast.error('URL path can only contain A-Z, a-z, 0-9 ,- & _');
+    toast.error('URL path can only contain A-Z, a-z, 0-9 , - , . , and _');
   }
+
+  const handleProfileImageSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (profilePic) {
+      toast.info('Uploading Profile Image. Please wait');
+      const form = new FormData();
+      form.append('file', profilePic)
+      handleImageUpload(form, '_profile').then(data => {
+        if (data?.error) toast.error(data.error);
+        else toast.success(data?.message);
+      });
+    } else {
+      toast.error('Select an image first');
+    }
+  }
+
+  const handleBannerUpload = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (banner) {
+      toast.info('Uploading banner. Please wait');
+      const form = new FormData();
+      form.append('file', banner)
+      handleImageUpload(form, '_banner').then(data => {
+        if (data?.error) toast.error(data.error);
+        else toast.success(data?.message);
+      });
+    } else {
+      toast.error('Select an image first');
+    }
+  }
+
   if (isLoading) return (
     <div className="flex justify-center items-center m-auto">
       <CirclesWithBar
@@ -73,20 +119,7 @@ const ProfileForm = () => {
       <div className="flex flex-col">
         <form
           className="flex flex-col gap-2 my-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (profilePic) {
-              toast.info('Uploading Profile Image');
-              const form = new FormData();
-              form.append('file', profilePic)
-              handleImageUpload(form, '_profile').then(data => {
-                if (data?.error) toast.error(data.error);
-                else toast.success(data?.message);
-              });
-            } else {
-              toast.error('Select an image first');
-            }
-          }}
+          onSubmit={handleProfileImageSubmit}
         >
           <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Upload Profile Pic</label>
           <input 
@@ -99,24 +132,13 @@ const ProfileForm = () => {
         <CustomButton
           text="Upload Profile Pic"
           varient="form"
+          RightIcon={<IoCloudUploadSharp/>}
+          styles="justify-between"
         />
         </form>
         <form
           className="flex flex-col gap-2 my-2"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (banner) {
-              toast.info('Uploading banner');
-              const form = new FormData();
-              form.append('file', banner)
-              handleImageUpload(form, '_banner').then(data => {
-                if (data?.error) toast.error(data.error);
-                else toast.success(data?.message);
-              });
-            } else {
-              toast.error('Select an image first');
-            }
-          }}
+          onSubmit={handleBannerUpload}
         >
           <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Upload Banner</label>
           <input 
@@ -129,6 +151,8 @@ const ProfileForm = () => {
         <CustomButton
           text="Upload Banner"
           varient="form"
+          RightIcon={<IoCloudUploadSharp/>}
+          styles="justify-between"
         />
 
         </form>
@@ -222,6 +246,8 @@ const ProfileForm = () => {
         <CustomButton
           text="Save Data"
           varient="form"
+          RightIcon={<IoMdSave/>}
+          styles="justify-between"
         />
       </form>
     </div>
