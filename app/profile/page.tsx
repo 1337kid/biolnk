@@ -22,6 +22,7 @@ export default async function Page() {
         draggable
         pauseOnHover
         theme="dark"
+        style={{padding: '1rem'}}
       />
       <div className="bg-zinc-950/80 h-[calc(100dvh-1rem)] rounded-xl border border-zinc-950 relative">
         <Navbar auth={user}/>

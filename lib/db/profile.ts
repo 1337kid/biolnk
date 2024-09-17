@@ -32,7 +32,8 @@ export const getProfileDataFromDBUsingPath = async (urlPath: string | undefined)
             bio: true,
             links: true,
             image: true,
-            banner: true
+            banner: true,
+            email: true
         }
     })
     return profile;

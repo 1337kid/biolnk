@@ -16,7 +16,8 @@ export default async function Home() {
         <Navbar auth={user}/>
         <div className="flex m-auto justify-between items-center flex-col max-lg:gap-10 h-full overflow-scroll">
           <h1 className="text-center w-[600px] mt-20 max-md:w-full text-[100px] leading-[110px] max-md:text-[80px] max-md:leading-[90px] font-[600] text-violet-300 container">
-            All Your <span className="gradient-text">Links</span> in One <span className="bg-zinc-950 rounded-xl px-2">
+            All Your <span className="gradient-text">Links</span> in One
+            <span className="bg-zinc-700 rounded-xl px-2">
               <span className="gradient-text">Place.</span>
             </span>
           </h1>

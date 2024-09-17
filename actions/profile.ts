@@ -18,7 +18,7 @@ export const handleProfileDataSubmit = async (
     const user = await getUser();
     try {
         const isPathUsed = await getProfileDataFromDBUsingPath(urlPath);
-        if (isPathUsed) return { error: "URL path is already used. Pick another one" }
+        if (isPathUsed && user?.email != isPathUsed.email) return { error: "URL path is already used. Pick another one" }
         await updateProfileData(
             user?.email,
             profileName,
