@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import ProfileForm from "@/components/ProfileForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
 
 export default async function Page() {
   const user = await getUser();

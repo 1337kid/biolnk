@@ -11,7 +11,7 @@ import NavLogo from "@/assets/icon.png";
 export default function Page() {
   const pathname = usePathname()
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const [profile, setData] = useState({
     name: "",
     banner: "",
@@ -55,7 +55,7 @@ export default function Page() {
                     <img
                       src={profile.banner 
                           ? profile.banner 
-                          : '/assets/nobanner.png'}
+                          : '/nobanner.png'}
                       alt="no banner"
                       width={1200}
                       height={20}
@@ -64,13 +64,13 @@ export default function Page() {
                     <img
                       src={profile.image 
                           ? profile.image 
-                          : '/assets/nobanner.png'}
+                          : '/nobanner.png'}
                       alt="no image"
                       width={100}
                       height={100}
                       className="absolute top-[70px] left-[50px] max-sm:left-[20px] object-cover rounded-lg h-[100px] w-[100px]"
                     />
-                    <h3 className="absolute top-[130px] text-violet-300 right-[1rem] text-2xl font-[450]">{profile.name}</h3>
+                    <h3 className="absolute top-[130px] text-violet-300 right-[1rem] text-2xl font-[450] max-w-[400px] max-sm:max-w-[200px] break-words">{profile.name}</h3>
                   </div>
                   <div className="p-2">
                     <p className="bg-zinc-800 rounded-md p-2 text-zinc-300 font-[450] mb-2">

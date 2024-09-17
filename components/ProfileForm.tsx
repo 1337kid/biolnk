@@ -11,6 +11,8 @@ import { toast } from 'react-toastify';
 import { IoMdSave } from "react-icons/io";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import isUrl from 'is-url';
+import Link from "next/link";
+import { MdOpenInNew } from "react-icons/md";
 
 const ProfileForm = () => {
   const [data, setData] = useState({
@@ -19,6 +21,7 @@ const ProfileForm = () => {
     bio: "",
   });
   const [links, setLinks] = useState([{link:"",title:""}]);
+  const [profileURL, setProfileURL] = useState("")
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [banner, setBanner] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +34,7 @@ const ProfileForm = () => {
         urlPath: data?.urlpath  as string,
         bio: data?.bio  as string
       })
+      setProfileURL(data?.urlpath as string);
       if (data?.links == null) setLinks([]);
       else setLinks(data?.links as any);
       setIsLoading(false);
@@ -59,9 +63,12 @@ const ProfileForm = () => {
             data.urlPath,
             data.bio,
             links
-        ).then(data => {
-          if (data?.error) toast.error(data.error);
-          else toast.success(data?.message);
+        ).then(resdata => {
+          if (resdata?.error) toast.error(resdata.error);
+          else {
+            setProfileURL(data.urlPath);
+            toast.success(resdata?.message);
+          }
         });
         return;
     }
@@ -118,6 +125,15 @@ const ProfileForm = () => {
   else return (
     <div className='text-violet-300 w-full'>
       <div className="flex flex-col">
+        <a href={`/${profileURL}`} target="_blank">
+          <CustomButton
+            text="View Your Public Page"
+            varient="navbar"
+            type="button"
+            RightIcon={<MdOpenInNew/>}
+            styles="justify-between w-full"
+          />
+        </a>
         <form
           className="flex flex-col gap-2 my-2"
           onSubmit={handleProfileImageSubmit}
