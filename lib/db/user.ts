@@ -11,11 +11,13 @@ export const checkUserFromDB = async (email: string | undefined) => {
     return true;
 }
 
-export const insertUserIntoDB = async (email: string) => {
+export const insertUserIntoDB = async (email: string, name: string, urlPath: string) => {
     const prisma = new PrismaClient();
     await prisma.users.create({
         data: {
-            email: email
+            email: email,
+            name: name,
+            urlpath: urlPath
         }
     })
 }

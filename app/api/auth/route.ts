@@ -13,7 +13,13 @@ export async function GET(request: Request) {
     if (!error) {
       const currentUser = (await supabase.auth.getUser()).data.user;
       if (!await checkUserFromDB(currentUser?.email)) {
-        await insertUserIntoDB(currentUser?.email!)
+        const name = currentUser?.user_metadata?.name;
+        const urlPath = currentUser?.email?.split("@")[0];
+        await insertUserIntoDB(
+          currentUser?.email!,
+          name,
+          urlPath!
+        )
       }
       const forwardedHost = request.headers.get('x-forwarded-host')
       const isLocalEnv = process.env.NODE_ENV === 'development'
